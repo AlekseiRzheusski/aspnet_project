@@ -1,0 +1,19 @@
+﻿@model int
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h4>Вы действительно хотите удалить?</h4>
+    </div>
+    <div class="modal-body">
+        <table>
+            <tr>
+                <td>
+                    @Html.ActionLink("Удалить", "DeleteSchedule", new { scheduleId = Model }, new { @class = "btn btn-danger" })
+                </td>
+                <td>
+                    <button class="close, btn btn-primary" data-dismiss="modal" area-hidden="true">Закрыть</button>
+                </td>       
+            </tr>
+        </table>
+    </div>
+</div>

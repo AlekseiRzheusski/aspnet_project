@@ -1,0 +1,35 @@
+﻿@model WebApiIdentity.Models.JournalViewModel
+
+@if (Model.lessons.Count == 0)
+{
+    <h1>Занятий нет</h1>
+}
+else
+{
+
+    <table class="table table-striped">
+
+
+        <tr>
+            <td>Предмет</td>
+            <td>Класс</td>
+            <td>Аудитория</td>
+            <td>Время начала</td>
+        </tr>
+        @foreach (var a in Model.lessons)
+        {
+
+            <tr>
+                <td>@a.subject.name</td>
+                <td>@a.schedule.class_id</td>
+                <td>@a.schedule.classroom</td>
+                <td>@a.schedule.begin_time</td>
+                <td>@Html.ActionLink("Отметки", "ClassJournal", new { scheduleId=a.schedule.id, date=Model.date }, new { @class = "btn btn-primary" })</td>
+
+            </tr>
+
+
+        }
+
+    </table>
+}

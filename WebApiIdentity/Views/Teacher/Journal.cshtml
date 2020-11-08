@@ -1,0 +1,46 @@
+﻿@model WebApiIdentity.Models.JournalViewModel
+@{
+    ViewBag.Title = "Journal";
+}
+
+
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "results"
+    };
+}
+
+<div>
+
+    @using (Ajax.BeginForm("JournalTimetable", "Teacher", ajaxOptions))
+    {
+        <input type="date" name="date" class = "form-control"/>
+        //@Html.EditorFor(Model => Model.date)
+        <button class="btn btn-primary" type="submit">Поиск</button>
+    }
+    <div id="results"></div>
+
+</div>
+@*<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />*@
+
+@*@section scripts{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#date").datepicker({
+                dateFormat: "dd/mm/yy",
+                minDate: new Date(2019, 8, 1),
+                maxDate: new Date(2020, 4, 31),
+
+                showOn: "both"
+            }
+            );
+        })
+    </script>
+}*@
+@Scripts.Render("~/scripts/jquery-3.4.1.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+
+
+

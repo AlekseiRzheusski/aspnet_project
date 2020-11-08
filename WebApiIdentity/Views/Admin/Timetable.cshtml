@@ -1,0 +1,24 @@
+﻿@{
+
+    ViewBag.Title = "Timetable";
+}
+
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "results"
+    };
+}
+
+<div>
+    @using (Ajax.BeginForm("TimetableSearchResult", "Admin", ajaxOptions))
+    {
+        <input type="text" name="id" />
+        <input class="btn btn-primary" type="submit" value="Поиск" />
+    }
+
+    <div id="results"></div>
+</div>
+
+@Scripts.Render("~/scripts/jquery-3.4.1.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")

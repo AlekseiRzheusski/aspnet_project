@@ -1,0 +1,55 @@
+﻿@model List<WebApiIdentity.Models.MarkViewModel>
+
+@{
+    ViewBag.Title = "ClassJournal";
+}
+
+    <table class="table table-striped">
+
+
+        <tr>
+            <td>Фамилия</td>
+            <td>Имя</td>
+            <td>Отчество</td>
+            <td>Отметка</td>
+        </tr>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+
+    <tr>
+        <td>@Model[i].student.surname</td>
+        <td>@Model[i].student.name</td>
+        <td>@Model[i].student.patronymic</td>
+        @if (Model[i].mark == null)
+        {
+            Model[i].mark = new WebApiIdentity.Models.Mark();
+
+            <td>-</td>
+            @*<td>@Html.ActionLink("Отсутствие", "ClassJournal", new { }, new { @class = "btn btn-danger" })</td>
+
+            <td>
+                @Html.ActionLink("Отметка", "AddMark", new { studentId = Model[i].student.Id, date=Model[i].date, scheduleId = Model[i].scheduleId }, new { @class = "btn btn-primary" })
+            </td>*@
+            <td>
+                @using (Html.BeginForm("AddMark", "Teacher", new { studentId = Model[i].student.Id, date = Model[i].date, scheduleId = Model[i].scheduleId }))
+                {
+
+                    @Html.DropDownList("mark", new SelectList(new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }))
+                    <button class="btn btn-success" type="submit">Отметка</button>
+                    @Html.ActionLink("Отсутствие", "AddAbsence", new { studentId = Model[i].student.Id, date = Model[i].date, scheduleId = Model[i].scheduleId },
+                        new { @class = "btn btn-danger btn", style = "float: left; margin-right: 10px" })
+                }
+            </td>
+        }
+        else
+        {
+            <td>@Model[i].mark.mark1</td>
+            <td>@Html.ActionLink("Удалить", "DeleteMark", new {markId=Model[i].mark.id, date = Model[i].date, scheduleId = Model[i].scheduleId }, new { @class = "btn btn-danger" })</td>
+        }
+
+    </tr>
+
+
+        }
+
+    </table>

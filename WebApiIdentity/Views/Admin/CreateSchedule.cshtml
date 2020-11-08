@@ -1,0 +1,33 @@
+﻿@model WebApiIdentity.Models.Schedule
+
+@Html.ValidationSummary()
+
+@using (Html.BeginForm())
+{
+    if (ViewBag.Teachers != null || ViewBag.Classrooms != null)
+    {
+
+        <label>@Model.class_id</label>
+        <label>@Model.begin_time.ToString()</label>
+        <div class="form-group">
+            <label>Преподаватель</label>
+            @Html.DropDownListFor(Model => Model.teacher_id, ViewBag.Teachers as SelectList, null, new { @class = "form-control" })
+        </div>
+        @Html.HiddenFor(Model => Model.class_id);
+        @Html.HiddenFor(Model => Model.begin_time);
+
+        <div class="form-group">
+            <label>Предмет</label>
+            @Html.DropDownListFor(Model => Model.subject_id, ViewBag.Subjects as SelectList, null, new { @class = "form-control" })
+        </div>
+
+
+        <div class="form-group">
+            <label>Аудитория</label>
+            @Html.DropDownListFor(Model => Model.classroom, ViewBag.Classrooms as SelectList, null, new { @class = "form-control" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    }
+    @Html.ActionLink("Отмена", "Timetable", null, new { @class = "btn btn-default" })
+}

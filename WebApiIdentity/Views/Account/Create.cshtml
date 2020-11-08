@@ -1,0 +1,49 @@
+﻿@model WebApiIdentity.Models.CreateModel
+
+@{
+    ViewBag.Title = "Создание пользователя";
+}
+
+@Html.ValidationSummary(false)
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label>Имя</label>
+        @Html.TextBoxFor(Model => Model.Login, null, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Пароль</label>
+        @Html.PasswordFor(Model => Model.Password, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Фамилия</label>
+        @Html.TextBoxFor(Model => Model.surname, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Имя</label>
+        @Html.TextBoxFor(Model => Model.name, new { @class = "form-control" })
+    </div>
+
+
+    <div class="form-group">
+        <label>Отчество</label>
+        @Html.TextBoxFor(Model => Model.patronymic, new { @class = "form-control" })
+    </div>
+
+
+    <div class="form-group">
+        <label>Класс</label>
+        @Html.DropDownListFor(Model => Model.classId, ViewBag.Classes as SelectList, null, new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Создать</button>
+
+    @Html.ActionLink("Отмена", "Login", null, new { @class = "btn btn-default" })
+}

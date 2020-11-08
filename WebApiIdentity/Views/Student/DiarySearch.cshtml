@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "DiarySearch";
+}
+
+@{
+
+    ViewBag.Title = "Timetable";
+}
+
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "results"
+    };
+}
+
+<div>
+    @using (Ajax.BeginForm("DiarySearchResult", "Student", ajaxOptions))
+    {
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="inputEmail4">Дата начала</label>
+                <input type="date" name="firstDate" class="form-control" />
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputEmail4">Дата конца</label>
+                <input type="date" name="secondDate" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input class="btn btn-primary" type="submit" value="Поиск" />
+            </div>
+        </div>
+    }
+
+</div>
+ <div id="results"></div>
+
+@Scripts.Render("~/scripts/jquery-3.4.1.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")

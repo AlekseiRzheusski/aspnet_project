@@ -1,0 +1,126 @@
+﻿@model WebApiIdentity.Models.ScheduleViewModel
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Понедельник
+    </div>
+    <table class="table table-striped">
+
+        <tr>
+            <td>Предмет</td>
+            <td>Аудитория</td>
+            <td>Класс</td>
+            <td>Время начала</td>
+        </tr>
+
+        @foreach (var tmp in Model.mondayLessons)
+        {
+    <tr>
+        <td>@tmp.subject.name</td>
+        <td>@tmp.schedule.classroom</td>
+        <td>@tmp.schedule.class_id</td>
+        <td>@tmp.schedule.begin_time</td>
+    </tr>
+        }
+
+    </table>
+
+    <div class="panel-heading">
+        Вторник
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <td>Предмет</td>
+            <td>Аудитория</td>
+            <td>Класс</td>
+            <td>Время начала</td>
+        </tr>
+
+        @foreach (var tmp in Model.tuesdayLessons)
+        {
+    <tr>
+        <td>@tmp.subject.name</td>
+        <td>@tmp.schedule.classroom</td>
+        <td>@tmp.schedule.class_id</td>
+        <td>@tmp.schedule.begin_time</td>
+    </tr>
+        }
+
+    </table>
+
+    <div class="panel-heading">
+        Среда
+    </div>
+    <table class="table table-striped">
+
+        <tr>
+            <td>Предмет</td>
+            <td>Аудитория</td>
+            <td>Класс</td>
+            <td>Время начала</td>
+        </tr>
+
+        @foreach (var tmp in Model.wednesdayLessons)
+        {
+    <tr>
+        <td>@tmp.subject.name</td>
+        <td>@tmp.schedule.classroom</td>
+        <td>@tmp.schedule.class_id</td>
+        <td>@tmp.schedule.begin_time</td>
+    </tr>
+        }
+
+    </table>
+
+    <div class="panel-heading">
+        Четверг
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <td>Предмет</td>
+            <td>Аудитория</td>
+            <td>Класс</td>
+            <td>Время начала</td>
+        </tr>
+
+        @foreach (var tmp in Model.thursdayLessons)
+        {
+            <tr>
+                <td>@tmp.subject.name</td>
+                <td>@tmp.schedule.classroom</td>
+                <td>@tmp.schedule.class_id</td>
+                <td>@tmp.schedule.begin_time</td>
+            </tr>
+        }
+
+    </table>
+
+    <div class="panel-heading">
+        Пятница
+    </div>
+
+    <table class="table table-striped">
+
+        <tr>
+            <td>Предмет</td>
+            <td>Аудитория</td>
+            <td>Класс</td>
+            <td>Время начала</td>
+        </tr>
+
+        @foreach (var tmp in Model.fridayLessons)
+        {
+    <tr>
+        <td>@tmp.subject.name</td>
+        <td>@tmp.schedule.classroom</td>
+        <td>@tmp.schedule.class_id</td>
+        <td>@tmp.schedule.begin_time</td>
+    </tr>
+        }
+
+    </table>
+</div>
+
+
+
+

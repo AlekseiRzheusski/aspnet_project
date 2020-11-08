@@ -1,0 +1,19 @@
+﻿@model WebApiIdentity.Models.Class
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label>@Model.id</label>
+    </div>
+
+    <div class="form-group">
+        <label>Классный руководитель</label>
+        @Html.DropDownListFor(Model => Model.teacher_id, ViewBag.Teachers as SelectList, null, new { @class = "form-control" })
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    @Html.ActionLink("Отмена", "Class", null, new { @class = "btn btn-default" })
+}
+
+

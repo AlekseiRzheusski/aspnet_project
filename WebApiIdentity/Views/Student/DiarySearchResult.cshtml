@@ -1,0 +1,24 @@
+﻿@model WebApiIdentity.Models.DiaryViewModel
+
+    <div class="panel panel-primary">
+        <table class="table table-striped">
+            <tr>
+                <td>Предмет</td>
+                <td>Преподаватель</td>
+                <td>Дата</td>
+                <td>Отметка</td>
+
+            </tr>
+
+            @foreach (var tmp in Model.diary)
+            {
+                <tr>
+                    <td>@tmp.subject</td>
+                    <td>@tmp.teacher</td>
+                    <td>@tmp.mark.date</td>
+                    <td>@tmp.mark.mark1</td>
+                </tr>
+            }
+
+        </table>
+        </div>

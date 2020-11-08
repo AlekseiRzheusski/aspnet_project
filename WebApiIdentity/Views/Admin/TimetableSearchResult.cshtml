@@ -1,0 +1,232 @@
+﻿@model WebApiIdentity.Models.ScheduleViewModel
+@Scripts.Render("~/scripts/Chart.min.js")
+@Scripts.Render("~/scripts/Chart.js")
+
+
+@functions{
+    WebApiIdentity.Models.LessonViewModel checkExistence(List<WebApiIdentity.Models.LessonViewModel> lessonViews, TimeSpan time)
+    {
+
+
+        foreach (var tmp in lessonViews)
+        {
+            if (tmp.schedule.begin_time == time)
+            {
+                return tmp;
+            }
+        }
+
+        return null;
+    }
+}
+
+@helper dayTable(List<WebApiIdentity.Models.LessonViewModel> lessonViews, string day_of_week)
+{
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <div id="dialog-confirm"></div>
+    <table class="table table-striped">
+
+
+        <tr>
+            <td>Предмет</td>
+            <td>Преподаватель</td>
+            <td>Аудитория</td>
+            <td>Время начала</td>
+        </tr>
+        @foreach (var a in Model.times)
+        {
+
+            WebApiIdentity.Models.LessonViewModel lesson = checkExistence(lessonViews, a);
+
+            if (lesson != null)
+            {
+                <tr>
+                    <td>@lesson.subject.name</td>
+                    @if (lesson.teacher != null)
+                    {
+                        <td>
+                            @lesson.teacher
+                        </td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+
+                    <td>@lesson.schedule.classroom</td>
+                    <td>@lesson.schedule.begin_time</td>
+                    <td>
+                        @*@Html.ActionLink("Удалить", "DeleteSchedule", new { scheduleId = lesson.schedule.id }, new { @class = "btn btn-danger" })*@
+                        @*<input type="button" value="Удалить" onclick="fnOpenNormalDialog(@lesson.schedule.id)" class="btn btn-danger" />*@
+                        @Html.ActionLink("Удалить", "DeleteScheduleModalView", new { id = lesson.schedule.id }, new { @class = "btn btn-danger" })
+                        }
+                    </td>
+
+                </tr>
+
+
+            }
+            else
+            {
+                <tr>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>
+                        @Html.ActionLink("Добавить", "CreateSchedule", new { day_of_week = day_of_week, classId = Model.classId, time = a }, new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
+
+
+            @*<script>
+
+
+
+
+                    function fnOpenNormalDialog(i) {
+                        $("#dialog-confirm").html("Confirm Dialog Box");
+
+                        $("#dialog-confirm").dialog({
+                            resizable: false,
+                            modal: true,
+                            title: "Modal",
+                            height: 250,
+                            width: 400,
+                            open: function (event, ui) {
+                                $('<a />', {
+                                    'class': 'btn btn-primary',
+                                    text: 'Да',
+                                    href: "https://localhost:44337/Admin/DeleteSchedule?scheduleId="+i
+                                })
+                                    .appendTo($(".ui-dialog-buttonpane"))
+                                    .click(function () {
+                                        $(event.target).dialog('close');
+                                    });
+
+                            },
+
+                            buttons: [
+                                {
+                                    text: "Нет",
+                                    class: 'btn btn-primary',
+                                    click: function () {
+                                        $(this).dialog("close");
+                                    }
+                                }
+                            ]
+                        });
+                    }
+
+
+                    function callback(value) {
+                        if (value) {
+                        } else {
+                        }
+                    }
+                </script>*@
+        }
+
+    </table>
+
+
+}
+
+
+<script>
+
+    $(function () {
+        $.ajaxSetup({ cache: false });
+        $(".btn-danger").click(function (e) {
+
+            e.preventDefault();
+            $.get(this.href, function (data) {
+                $('#dialogContent').html(data);
+                $('#modDialog').modal('show');
+            });
+        });
+    })
+
+    var speedCanvas = document.getElementById("speedChart");
+
+    Chart.defaults.global.defaultFontFamily = "Lato";
+    Chart.defaults.global.defaultFontSize = 18;
+
+    var speedData = {
+        labels: ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница"],
+        datasets: [{
+            label: "Загруженность",
+            data: [@Model.difficulty[0], @Model.difficulty[1], @Model.difficulty[2], @Model.difficulty[3], @Model.difficulty[4]],
+        }]
+    };
+
+    var chartOptions = {
+        legend: {
+            display: true,
+            position: 'top',
+            labels: {
+                boxWidth: 80,
+                fontColor: 'black'
+            }
+        }
+    };
+
+    var lineChart = new Chart(speedCanvas, {
+        type: 'line',
+        data: speedData,
+        options: chartOptions
+    });
+
+
+    
+
+
+
+</script>
+
+<div class="panel panel-primary">
+    <div id="modDialog" class="modal fade">
+        <div id="dialogContent" class="modal-dialog"></div>
+    </div>
+    <div class="panel-heading">
+        @Model.classId
+    </div>
+    <div class="panel-heading">
+        Понедельник
+    </div>
+
+    @dayTable(Model.mondayLessons, "пн")
+
+
+
+    <div class="panel-heading">
+        Вторник
+    </div>
+    @dayTable(Model.tuesdayLessons, "вт")
+
+
+
+    <div class="panel-heading">
+        Среда
+    </div>
+
+    @dayTable(Model.wednesdayLessons, "ср")
+
+
+
+    <div class="panel-heading">
+        Четверг
+    </div>
+    @dayTable(Model.thursdayLessons, "чт")
+
+
+    <div class="panel-heading">
+        Пятница
+    </div>
+    @dayTable(Model.fridayLessons, "пт")
+
+
+</div>
+<canvas id="speedChart" width="600" height="400"></canvas>

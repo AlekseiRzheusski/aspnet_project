@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "main";
+}
+
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "results"
+    };
+}
+@*<h4 align="center">Поиск по классу</h4>*@
+<div>
+    @using (Ajax.BeginForm("MainSearch", "Home", ajaxOptions))
+    {
+            <div class="form-group">
+                <input type="text" name="id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Поиск" class="btn btn-primary" />
+            </div>
+        
+    }
+
+</div>
+    <div id="results"></div>
+
+@Scripts.Render("~/scripts/jquery-3.4.1.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+
+
